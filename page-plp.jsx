@@ -41,7 +41,7 @@ const PLPFilters = ({ filters, setFilters, count }) => {
   };
 
   return (
-    <aside style={{ width: 240, flexShrink: 0, position: 'sticky', top: 130, alignSelf: 'flex-start' }}>
+    <aside style={{ width: 220, flexShrink: 0, position: 'sticky', top: 100, alignSelf: 'flex-start', borderRight: '1px solid var(--line)', padding: '24px 32px' }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
         <div style={{ fontSize: 13, fontWeight: 500 }}>{count} {count === 1 ? 'piece' : 'pieces'}</div>
         <button onClick={() => setFilters({ size: [], color: [], price: null, tags: [] })} style={{ fontSize: 12, color: 'var(--stone)', textDecoration: 'underline' }}>Reset</button>
@@ -155,38 +155,26 @@ const PLPPage = ({ category, onQuickView, onAddWishlist, wishlist }) => {
   }, [cat, filters, sort]);
 
   return (
-    <div className="page-enter container" style={{ padding: '32px 32px 0' }} data-screen-label={`02 PLP — ${cat.label}`}>
-      {/* Hero */}
-      <div style={{ paddingBlock: '32px 48px', borderBottom: '1px solid var(--line)', marginBottom: 32, display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', gap: 24, flexWrap: 'wrap' }}>
-        <div>
-          <div style={{ fontSize: 12, letterSpacing: '0.1em', color: 'var(--stone)', marginBottom: 12, fontFamily: 'var(--mono)' }}>
-            <a href="#/">Home</a> / <a href="#/shop/all">Shop</a>{cat.id !== 'all' && <> / {cat.label}</>}
-          </div>
-          <h1 className="t-display" style={{ fontSize: 'clamp(40px, 6vw, 80px)', margin: 0 }}>
-            {cat.id === 'all' ? <>Everything we make.</> : <>{cat.label}.</>}
-          </h1>
-          <p style={{ fontSize: 14.5, color: 'var(--stone)', marginTop: 12, maxWidth: 540, lineHeight: 1.5 }}>
-            {cat.id === 'all' && 'Spring 2026 — twenty-eight pieces, designed slowly.'}
-            {cat.id === 'outerwear' && 'Pieces for a March morning. Layered, lasting, deeply considered.'}
-            {cat.id === 'knits' && 'Slow-spun yarns, made on family-run gauges in northern Italy.'}
-            {cat.id === 'tops' && 'Shirts and tees that earn their place.'}
-            {cat.id === 'denim' && 'Japanese selvedge in three honest washes.'}
-            {cat.id === 'trousers' && 'A trouser, a pleat, a quiet confidence.'}
-            {cat.id === 'dresses' && 'Cuts that move with you and against you.'}
-            {cat.id === 'shoes' && 'Made in small workshops in northern Portugal.'}
-            {cat.id === 'accessories' && 'Bags, belts, scarves, and the small ones.'}
-          </p>
+    <div className="page-enter" style={{ padding: '0' }} data-screen-label={`02 PLP — ${cat.label}`}>
+      {/* Minimal header row */}
+      <div style={{ padding: '28px 40px 20px', borderBottom: '1px solid var(--line)', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        <h1 style={{ fontSize: 13, letterSpacing: '0.1em', textTransform: 'uppercase', margin: 0, fontWeight: 400 }}>
+          {cat.id === 'all' ? 'All' : cat.label}
+          <span style={{ color: 'var(--stone)', marginLeft: 12 }}>{filtered.length}</span>
+        </h1>
+        <div style={{ fontSize: 11, color: 'var(--stone)', letterSpacing: '0.06em' }}>
+          <a href="#/">Home</a> / <a href="#/shop/all">Shop</a>{cat.id !== 'all' && <> / {cat.label}</>}
         </div>
       </div>
 
-      <div style={{ display: 'flex', gap: 40, alignItems: 'flex-start' }}>
+      <div style={{ display: 'flex', gap: 0, alignItems: 'flex-start' }}>
         <PLPFilters filters={filters} setFilters={setFilters} count={filtered.length} />
 
-        <div style={{ flex: 1, minWidth: 0 }}>
+        <div style={{ flex: 1, minWidth: 0, padding: '24px 40px' }}>
           {/* Toolbar */}
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 24 }}>
-            <div style={{ fontSize: 13, color: 'var(--stone)' }}>
-              Showing <span style={{ color: 'var(--ink)', fontWeight: 500 }}>{filtered.length}</span> of {PRODUCTS.length}
+            <div style={{ fontSize: 11, color: 'var(--stone)', letterSpacing: '0.06em', textTransform: 'uppercase' }}>
+              {filtered.length} items
             </div>
             <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
               <div style={{ display: 'flex', gap: 0, border: '1px solid var(--line)', borderRadius: 'var(--r-pill)', padding: 2 }}>
@@ -269,7 +257,7 @@ const PLPPage = ({ category, onQuickView, onAddWishlist, wishlist }) => {
             <div style={{
               display: 'grid',
               gridTemplateColumns: `repeat(${density}, 1fr)`,
-              gap: 24,
+              gap: '2px 16px',
             }}>
               {filtered.map(p => (
                 <ProductCard

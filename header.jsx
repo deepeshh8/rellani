@@ -175,105 +175,91 @@ const SearchOverlay = ({ open, onClose }) => {
 const Header = ({ cartCount, wishlistCount, onOpenCart, onOpenSearch, route }) => {
   const [scrolled, setScrolled] = React.useState(false);
   React.useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 12);
+    const onScroll = () => setScrolled(window.scrollY > 4);
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
   const isPLP = route.startsWith('/shop');
   const currentCat = isPLP ? route.split('/')[2] : null;
+  const linkStyle = { fontSize: 12, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--ink)' };
 
   return (
     <header style={{
       position: 'sticky', top: 0, zIndex: 50,
-      background: scrolled ? 'rgba(255, 255, 255, 0.95)' : 'var(--paper)',
-      backdropFilter: scrolled ? 'blur(14px)' : 'none',
+      background: 'rgba(255,255,255,0.97)',
+      backdropFilter: 'blur(12px)',
       borderBottom: scrolled ? '1px solid var(--line)' : '1px solid transparent',
-      transition: 'background .25s var(--ease), border-color .25s var(--ease)',
+      transition: 'border-color .2s',
     }}>
       <Announcement />
 
-      <div className="container" style={{
+      {/* Main nav row */}
+      <div style={{
         display: 'grid',
         gridTemplateColumns: '1fr auto 1fr',
         alignItems: 'center',
-        padding: '18px 32px',
-        gap: 24,
+        padding: '0 24px',
+        height: 52,
       }}>
-        {/* left: nav */}
-        <nav style={{ display: 'flex', gap: 22, alignItems: 'center', fontSize: 13.5 }}>
-          <a href="#/shop/all" style={{ position: 'relative', paddingBottom: 4 }}>
-            Shop
-            {isPLP && <span style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: 1, background: 'var(--ink)' }} />}
-          </a>
-          <a href="#/lookbook" style={{ position: 'relative', paddingBottom: 4 }}>
-            Lookbook
-            {route.startsWith('/lookbook') && <span style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: 1, background: 'var(--ink)' }} />}
-          </a>
-          <a href="#/about" style={{ paddingBottom: 4 }}>About</a>
+        {/* Left nav */}
+        <nav style={{ display: 'flex', gap: 28, alignItems: 'center' }}>
+          <a href="#/shop/all" style={{ ...linkStyle, borderBottom: isPLP ? '1px solid var(--ink)' : 'none', paddingBottom: 1 }}>Shop</a>
+          <a href="#/lookbook" style={{ ...linkStyle, borderBottom: route.startsWith('/lookbook') ? '1px solid var(--ink)' : 'none', paddingBottom: 1 }}>Lookbook</a>
+          <a href="#/about" style={linkStyle}>About</a>
         </nav>
 
-        {/* center: wordmark */}
-        <a href="#/" style={{ justifySelf: 'center' }}>
-          <Wordmark size={28} />
+        {/* Center wordmark */}
+        <a href="#/" style={{ justifySelf: 'center', letterSpacing: '0.18em', fontSize: 20, textTransform: 'uppercase', fontWeight: 400 }}>
+          RELLANI
         </a>
 
-        {/* right: actions */}
-        <div style={{ display: 'flex', gap: 4, alignItems: 'center', justifySelf: 'end' }}>
+        {/* Right icons */}
+        <div style={{ display: 'flex', alignItems: 'center', justifySelf: 'end', gap: 2 }}>
           <button onClick={onOpenSearch} className="icon-btn" aria-label="Search">
-            <Icon name="search" size={18} stroke={1.5} />
+            <Icon name="search" size={17} stroke={1.4} />
           </button>
           <a href="#/account" className="icon-btn" aria-label="Account">
-            <Icon name="user" size={18} stroke={1.5} />
+            <Icon name="user" size={17} stroke={1.4} />
           </a>
           <a href="#/wishlist" className="icon-btn" aria-label="Wishlist" style={{ position: 'relative' }}>
-            <Icon name="heart" size={18} stroke={1.5} />
+            <Icon name="heart" size={17} stroke={1.4} />
             {wishlistCount > 0 && (
               <span style={{
-                position: 'absolute', top: 4, right: 4,
-                width: 14, height: 14, borderRadius: '50%',
-                background: 'var(--accent)', color: 'var(--bone)',
-                fontSize: 9, fontWeight: 600,
-                display: 'flex', alignItems: 'center', justifyContent: 'center',
-              }}>{wishlistCount}</span>
+                position: 'absolute', top: 6, right: 6,
+                width: 6, height: 6,
+                background: 'var(--ink)',
+                borderRadius: '50%',
+              }} />
             )}
           </a>
           <button onClick={onOpenCart} className="icon-btn" aria-label="Cart" style={{ position: 'relative' }} id="cart-icon">
-            <Icon name="bag" size={18} stroke={1.5} />
+            <Icon name="bag" size={17} stroke={1.4} />
             {cartCount > 0 && (
               <span style={{
-                position: 'absolute', top: 4, right: 4,
-                width: 16, height: 16, borderRadius: '50%',
-                background: 'var(--ink)', color: 'var(--bone)',
-                fontSize: 9.5, fontWeight: 600,
-                display: 'flex', alignItems: 'center', justifyContent: 'center',
-              }}>{cartCount}</span>
+                position: 'absolute', top: 6, right: 6,
+                width: 6, height: 6,
+                background: 'var(--ink)',
+                borderRadius: '50%',
+              }} />
             )}
           </button>
         </div>
       </div>
 
-      {/* sub-nav for category quick-jumps (visible on PLP) */}
+      {/* Category sub-nav on PLP */}
       {isPLP && (
-        <div style={{
-          borderTop: '1px solid var(--line)',
-          background: 'var(--paper)',
-        }}>
-          <div className="container" style={{ display: 'flex', gap: 8, padding: '12px 32px', overflowX: 'auto' }}>
+        <div style={{ borderTop: '1px solid var(--line)', overflowX: 'auto' }}>
+          <div style={{ display: 'flex', padding: '0 24px' }}>
             {CATEGORIES.map(c => (
-              <a
-                key={c.id}
-                href={`#/shop/${c.id}`}
-                style={{
-                  padding: '6px 14px', borderRadius: 'var(--r-pill)',
-                  fontSize: 12.5, letterSpacing: '0.03em',
-                  background: currentCat === c.id ? 'var(--ink)' : 'transparent',
-                  color: currentCat === c.id ? 'var(--bone)' : 'var(--ink)',
-                  border: currentCat === c.id ? 'none' : '1px solid var(--line)',
-                  whiteSpace: 'nowrap',
-                  transition: 'all .2s var(--ease)',
-                }}
-              >{c.label}</a>
+              <a key={c.id} href={`#/shop/${c.id}`} style={{
+                padding: '10px 16px',
+                fontSize: 11, letterSpacing: '0.1em', textTransform: 'uppercase',
+                color: currentCat === c.id ? 'var(--ink)' : 'var(--stone)',
+                borderBottom: currentCat === c.id ? '1px solid var(--ink)' : '1px solid transparent',
+                whiteSpace: 'nowrap',
+                transition: 'color .15s',
+              }}>{c.label}</a>
             ))}
           </div>
         </div>
@@ -283,61 +269,55 @@ const Header = ({ cartCount, wishlistCount, onOpenCart, onOpenSearch, route }) =
 };
 
 const Footer = () => (
-  <footer style={{
-    background: 'var(--ink)',
-    color: 'var(--bone)',
-    marginTop: 80,
-    paddingTop: 80,
-    paddingBottom: 32,
-  }}>
-    <div className="container">
-      <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr 1fr', gap: 48, marginBottom: 64 }}>
-        <div>
-          <div style={{ fontFamily: 'var(--serif)', fontSize: 34, lineHeight: 1, marginBottom: 16, letterSpacing: '-0.01em' }}>rellani</div>
-          <p style={{ fontSize: 13.5, color: 'rgba(251, 248, 241, 0.72)', maxWidth: 320, lineHeight: 1.6 }}>
-            Quietly considered clothing, designed in a small studio in Brooklyn and made in family-run mills across Italy, Portugal and Japan.
-          </p>
-          <div style={{ marginTop: 28 }}>
-            <div className="t-eyebrow" style={{ color: 'rgba(251, 248, 241, 0.5)', marginBottom: 10 }}>Letter from the studio</div>
-            <div style={{ display: 'flex', gap: 8, maxWidth: 360 }}>
-              <input className="input-underline" placeholder="your@email.com" style={{ color: 'var(--bone)', borderBottomColor: 'rgba(251,248,241,0.25)' }} />
-              <button className="icon-btn" style={{ color: 'var(--bone)' }} aria-label="Subscribe">
-                <Icon name="arrow" size={18} />
-              </button>
-            </div>
-          </div>
-        </div>
-        {[
-          { title: 'Shop', items: [['New', '#/shop/all'], ['Outerwear', '#/shop/outerwear'], ['Knits', '#/shop/knits'], ['Denim', '#/shop/denim'], ['Shoes', '#/shop/shoes']] },
-          { title: 'Help', items: [['Contact', '#'], ['Shipping', '#'], ['Returns', '#'], ['Size guide', '#'], ['Care guide', '#']] },
-          { title: 'Studio', items: [['About us', '#/about'], ['Lookbook', '#/lookbook'], ['Sustainability', '#'], ['Stockists', '#']] },
-          { title: 'Follow', items: [['Instagram', '#'], ['TikTok', '#'], ['Pinterest', '#'], ['Spotify', '#']] },
-        ].map(col => (
-          <div key={col.title}>
-            <div className="t-eyebrow" style={{ color: 'rgba(251, 248, 241, 0.5)', marginBottom: 16 }}>{col.title}</div>
-            <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: 10 }}>
-              {col.items.map(([label, href]) => (
-                <li key={label}><a href={href} style={{ fontSize: 13.5, color: 'rgba(251, 248, 241, 0.85)' }}>{label}</a></li>
-              ))}
-            </ul>
-          </div>
-        ))}
+  <footer style={{ borderTop: '1px solid var(--line)', marginTop: 80 }}>
+    {/* Email signup */}
+    <div style={{ borderBottom: '1px solid var(--line)', padding: '48px 40px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 40 }}>
+      <div>
+        <div style={{ fontSize: 11, letterSpacing: '0.16em', textTransform: 'uppercase', marginBottom: 8 }}>Stay in the loop</div>
+        <div style={{ fontSize: 13, color: 'var(--stone)' }}>New arrivals, exclusive access, and nothing else.</div>
       </div>
-      <div style={{
-        paddingTop: 24, borderTop: '1px solid rgba(251, 248, 241, 0.12)',
-        display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 16,
-        fontSize: 12, color: 'rgba(251, 248, 241, 0.5)',
-      }}>
-        <div>© 2026 Rellani Studio. All rights reserved.</div>
-        <div style={{ display: 'flex', gap: 18 }}>
-          <a href="#" style={{ color: 'inherit' }}>Privacy</a>
-          <a href="#" style={{ color: 'inherit' }}>Terms</a>
-          <a href="#" style={{ color: 'inherit' }}>Cookies</a>
-          <a href="#" style={{ color: 'inherit', display: 'flex', gap: 6, alignItems: 'center' }}>
-            <Icon name="global" size={13} />
-            United States / USD
-          </a>
+      <div style={{ display: 'flex', gap: 0, flex: '0 0 400px' }}>
+        <input className="input-underline" placeholder="Email address" style={{ flex: 1, fontSize: 13 }} />
+        <button style={{ fontSize: 11, letterSpacing: '0.12em', textTransform: 'uppercase', padding: '8px 20px', background: 'var(--ink)', color: '#fff', border: 'none', cursor: 'pointer' }}>
+          Subscribe
+        </button>
+      </div>
+    </div>
+
+    {/* Links */}
+    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', padding: '48px 40px 40px', gap: 32 }}>
+      {[
+        { title: 'Shop', items: [['New In', '#/shop/all'], ['Outerwear', '#/shop/outerwear'], ['Knitwear', '#/shop/knits'], ['Denim', '#/shop/denim'], ['Dresses', '#/shop/dresses'], ['Shoes', '#/shop/shoes'], ['Accessories', '#/shop/accessories']] },
+        { title: 'Help', items: [['Contact', '#'], ['Shipping Info', '#'], ['Returns', '#'], ['Size Guide', '#'], ['Care Guide', '#'], ['Track Order', '#']] },
+        { title: 'Company', items: [['About Rellani', '#/about'], ['Lookbook', '#/lookbook'], ['Sustainability', '#'], ['Careers', '#'], ['Stockists', '#']] },
+        { title: 'Follow', items: [['Instagram', '#'], ['TikTok', '#'], ['Pinterest', '#'], ['Spotify', '#']] },
+      ].map(col => (
+        <div key={col.title}>
+          <div style={{ fontSize: 11, letterSpacing: '0.14em', textTransform: 'uppercase', marginBottom: 20, fontWeight: 500 }}>{col.title}</div>
+          <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: 12 }}>
+            {col.items.map(([label, href]) => (
+              <li key={label}><a href={href} style={{ fontSize: 12, color: 'var(--stone)', letterSpacing: '0.02em' }}>{label}</a></li>
+            ))}
+          </ul>
         </div>
+      ))}
+    </div>
+
+    {/* Bottom bar */}
+    <div style={{
+      borderTop: '1px solid var(--line)',
+      padding: '20px 40px',
+      display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+      fontSize: 11, color: 'var(--stone)', letterSpacing: '0.04em',
+    }}>
+      <div style={{ letterSpacing: '0.18em', fontWeight: 400 }}>RELLANI © 2026</div>
+      <div style={{ display: 'flex', gap: 24 }}>
+        <a href="#" style={{ color: 'inherit' }}>Privacy Policy</a>
+        <a href="#" style={{ color: 'inherit' }}>Terms of Use</a>
+        <a href="#" style={{ color: 'inherit' }}>Cookies</a>
+        <a href="#" style={{ color: 'inherit', display: 'flex', gap: 5, alignItems: 'center' }}>
+          <Icon name="global" size={12} /> United States / USD
+        </a>
       </div>
     </div>
   </footer>

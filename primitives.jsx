@@ -123,30 +123,28 @@ const Toast = ({ message, onClose }) => {
   );
 };
 
-// ====== PRODUCT CARD ======
-const ProductCard = ({ product, onQuickView, onAddWishlist, isWishlisted, density = 'normal' }) => {
+// ====== PRODUCT CARD — Zara style ======
+const ProductCard = ({ product, onQuickView, onAddWishlist, isWishlisted }) => {
   const [hovered, setHovered] = React.useState(false);
   const [colorIdx, setColorIdx] = React.useState(0);
   const color = product.colors[colorIdx];
   const altImg = product.colors[(colorIdx + 1) % product.colors.length];
   const isNew = product.tags?.includes('new');
-  const isBest = product.tags?.includes('bestseller');
 
   return (
     <a
       href={`#/product/${product.slug}`}
-      className="product-card"
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      style={{ display: 'block', cursor: 'pointer' }}
+      style={{ display: 'block', cursor: 'pointer', textDecoration: 'none' }}
     >
+      {/* Image */}
       <div style={{
         position: 'relative',
-        aspectRatio: '4 / 5',
+        aspectRatio: '2 / 3',
         background: 'var(--paper-2)',
-        borderRadius: 'var(--r-md)',
         overflow: 'hidden',
-        marginBottom: 12,
+        marginBottom: 8,
       }}>
         <img
           src={IMG(color.img, 800)}
@@ -155,9 +153,8 @@ const ProductCard = ({ product, onQuickView, onAddWishlist, isWishlisted, densit
           style={{
             position: 'absolute', inset: 0, width: '100%', height: '100%',
             objectFit: 'cover',
-            transition: 'opacity .35s var(--ease), transform .8s var(--ease)',
+            transition: 'opacity .5s ease',
             opacity: hovered ? 0 : 1,
-            transform: hovered ? 'scale(1.04)' : 'scale(1)',
           }}
         />
         <img
@@ -167,92 +164,65 @@ const ProductCard = ({ product, onQuickView, onAddWishlist, isWishlisted, densit
           style={{
             position: 'absolute', inset: 0, width: '100%', height: '100%',
             objectFit: 'cover',
-            transition: 'opacity .4s var(--ease), transform .8s var(--ease)',
+            transition: 'opacity .5s ease',
             opacity: hovered ? 1 : 0,
-            transform: hovered ? 'scale(1.03)' : 'scale(1.06)',
           }}
         />
 
-        {/* badges */}
-        <div style={{ position: 'absolute', top: 12, left: 12, display: 'flex', gap: 6 }}>
-          {isNew && <Badge variant="new">New</Badge>}
-          {isBest && <Badge variant="soft">Bestseller</Badge>}
-        </div>
+        {isNew && (
+          <div style={{
+            position: 'absolute', top: 12, left: 12,
+            fontSize: 10, letterSpacing: '0.14em', textTransform: 'uppercase',
+            background: 'var(--bone)', color: 'var(--ink)',
+            padding: '3px 7px', fontWeight: 500,
+          }}>New</div>
+        )}
 
-        {/* wishlist */}
         <button
-          aria-label="Add to wishlist"
+          aria-label="Save"
           onClick={(e) => { e.preventDefault(); e.stopPropagation(); onAddWishlist?.(product.id); }}
           style={{
-            position: 'absolute', top: 10, right: 10,
-            width: 36, height: 36, borderRadius: '50%',
-            background: 'rgba(251, 248, 241, 0.92)',
+            position: 'absolute', top: 8, right: 8,
+            width: 34, height: 34, background: 'transparent', border: 'none',
             display: 'flex', alignItems: 'center', justifyContent: 'center',
-            backdropFilter: 'blur(8px)',
-            transition: 'transform .2s var(--ease)',
+            cursor: 'pointer', color: 'var(--ink)',
           }}
-          onMouseDown={e => e.currentTarget.style.transform = 'scale(0.92)'}
-          onMouseUp={e => e.currentTarget.style.transform = 'scale(1)'}
         >
-          <Icon name={isWishlisted ? 'heart-fill' : 'heart'} size={16} stroke={1.6} />
+          <Icon name={isWishlisted ? 'heart-fill' : 'heart'} size={18} stroke={1.4} />
         </button>
+      </div>
 
-        {/* quick view (slides up on hover) */}
-        <button
-          onClick={(e) => { e.preventDefault(); e.stopPropagation(); onQuickView?.(product); }}
-          style={{
-            position: 'absolute', left: 12, right: 12, bottom: 12,
-            background: 'var(--ink)', color: 'var(--bone)',
-            padding: '11px 14px', borderRadius: 'var(--r-pill)',
-            fontSize: 12, letterSpacing: '0.1em', textTransform: 'uppercase',
-            transform: hovered ? 'translateY(0)' : 'translateY(110%)',
+      {/* Info */}
+      <div style={{ paddingRight: 8 }}>
+        <div style={{ fontSize: 13, color: 'var(--ink)', marginBottom: 3, lineHeight: 1.3 }}>
+          {product.name}
+        </div>
+        <div style={{ fontSize: 13, color: 'var(--stone)' }}>${product.price}</div>
+
+        {/* Color dots — only on hover */}
+        {product.colors.length > 1 && (
+          <div style={{
+            display: 'flex', gap: 4, marginTop: 8,
             opacity: hovered ? 1 : 0,
-            transition: 'transform .35s var(--ease), opacity .35s var(--ease)',
-            display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8,
-            fontWeight: 500,
-          }}
-        >
-          <Icon name="eye" size={14} />
-          Quick view
-        </button>
-      </div>
-
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: 12 }}>
-        <div style={{ minWidth: 0, flex: 1 }}>
-          <div style={{ fontSize: 14, fontWeight: 500, marginBottom: 2, color: 'var(--ink)' }}>
-            {product.name}
+            transition: 'opacity .25s ease',
+          }}>
+            {product.colors.slice(0, 6).map((c, i) => (
+              <button
+                key={c.name}
+                onMouseEnter={() => setColorIdx(i)}
+                onClick={(e) => { e.preventDefault(); e.stopPropagation(); setColorIdx(i); }}
+                aria-label={c.name}
+                style={{
+                  width: 12, height: 12,
+                  background: c.hex,
+                  border: i === colorIdx ? '1.5px solid var(--ink)' : '1px solid rgba(0,0,0,0.15)',
+                  cursor: 'pointer',
+                  padding: 0,
+                  boxSizing: 'border-box',
+                }}
+              />
+            ))}
           </div>
-          <div style={{ fontSize: 12, color: 'var(--stone)' }}>
-            {product.colors.length} {product.colors.length === 1 ? 'color' : 'colors'}
-          </div>
-        </div>
-        <div style={{ fontFamily: 'var(--mono)', fontSize: 12, color: 'var(--ink)', whiteSpace: 'nowrap' }}>
-          ${product.price}
-        </div>
-      </div>
-
-      {/* color swatches */}
-      <div style={{ display: 'flex', gap: 5, marginTop: 8 }}>
-        {product.colors.slice(0, 5).map((c, i) => (
-          <button
-            key={c.name}
-            onMouseEnter={() => setColorIdx(i)}
-            onClick={(e) => { e.preventDefault(); e.stopPropagation(); setColorIdx(i); }}
-            aria-label={c.name}
-            style={{
-              width: 14, height: 14, borderRadius: '50%',
-              background: c.hex,
-              border: i === colorIdx ? '1.5px solid var(--ink)' : '1px solid rgba(20,17,13,0.15)',
-              boxShadow: 'inset 0 0 0 2px var(--paper)',
-              cursor: 'pointer',
-              transition: 'transform .15s var(--ease)',
-            }}
-          />
-        ))}
-        {product.colors.length > 5 && (
-          <span style={{ fontSize: 10, color: 'var(--stone)', alignSelf: 'center', marginLeft: 2 }}>
-            +{product.colors.length - 5}
-          </span>
         )}
       </div>
     </a>
