@@ -28,13 +28,13 @@ const Announcement = () => {
     <div style={{
       background: 'var(--ink)', color: 'var(--bone)',
       fontSize: 12, letterSpacing: '0.08em',
-      textAlign: 'center', padding: '10px 16px',
-      height: 36, display: 'flex', alignItems: 'center', justifyContent: 'center',
+      textAlign: 'center',
+      height: 36,
       overflow: 'hidden', position: 'relative',
     }}>
       <div style={{
         display: 'flex', flexDirection: 'column',
-        transform: `translateY(${-idx * 16}px)`,
+        transform: `translateY(${10 - idx * 16}px)`,
         transition: 'transform .55s var(--ease)',
       }}>
         {ANNOUNCEMENTS.map((m, i) => (
@@ -186,7 +186,7 @@ const Header = ({ cartCount, wishlistCount, onOpenCart, onOpenSearch, route }) =
   return (
     <header style={{
       position: 'sticky', top: 0, zIndex: 50,
-      background: scrolled ? 'rgba(242, 236, 224, 0.92)' : 'var(--paper)',
+      background: scrolled ? 'rgba(255, 255, 255, 0.95)' : 'var(--paper)',
       backdropFilter: scrolled ? 'blur(14px)' : 'none',
       borderBottom: scrolled ? '1px solid var(--line)' : '1px solid transparent',
       transition: 'background .25s var(--ease), border-color .25s var(--ease)',

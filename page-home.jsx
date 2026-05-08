@@ -431,44 +431,6 @@ const FeaturedBentoGrid = ({ onQuickView, onAddWishlist, wishlist }) => {
   );
 };
 
-// Big editorial story
-const BigEditorial = () => (
-  <section className="container" style={{ padding: '120px 32px 0' }}>
-    <div style={{ display: 'grid', gridTemplateColumns: '1.4fr 1fr', gap: 48, alignItems: 'stretch' }}>
-      <div style={{
-        position: 'relative', borderRadius: 'var(--r-lg)', overflow: 'hidden',
-        aspectRatio: '4/5', minHeight: 540,
-      }}>
-        <img src={IMG('1583743814966-8936f5b7be1a', 1400)} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-        <div style={{
-          position: 'absolute', bottom: 28, left: 28,
-          color: 'var(--bone)', fontFamily: 'var(--mono)', fontSize: 11, letterSpacing: '0.1em',
-        }}>SHOT 03 / FEATURING WORKSHOP TRENCH</div>
-      </div>
-      <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', padding: '24px 0' }}>
-        <div>
-          <div className="t-eyebrow" style={{ marginBottom: 18 }}>Story 01</div>
-          <h2 className="t-display" style={{ fontSize: 'clamp(40px, 5vw, 72px)', margin: '0 0 24px' }}>
-            Quiet <em style={{ fontStyle: 'italic' }}>hours.</em>
-          </h2>
-          <p style={{ fontSize: 16, lineHeight: 1.65, color: 'var(--ink-2)', maxWidth: 480, marginBottom: 16 }}>
-            There is a particular kind of light that arrives at the end of winter — slow,
-            low, generous to materials. We chased it for three days in Lisbon. These are the clothes that came home.
-          </p>
-          <p style={{ fontSize: 14, color: 'var(--stone)', lineHeight: 1.6, maxWidth: 460 }}>
-            Photographs by María Vázquez. Styled by Lana Okonkwo. Featuring the Aria Wool Overcoat,
-            the Soft Merino Crew, and the Archive Straight Jean.
-          </p>
-        </div>
-        <div style={{ display: 'flex', gap: 12, marginTop: 32 }}>
-          <a href="#/lookbook" className="btn btn-primary">Read the story <Icon name="arrow" size={14} /></a>
-          <a href="#/shop/all" className="btn btn-ghost">Shop the looks →</a>
-        </div>
-      </div>
-    </div>
-  </section>
-);
-
 // Categories
 const CategoryShelf = () => {
   const cats = [
@@ -672,7 +634,6 @@ const HomePage = ({ onQuickView, onAddWishlist, wishlist }) => (
     <HomeHero />
     <Marquee />
     <FeaturedBentoGrid onQuickView={onQuickView} onAddWishlist={onAddWishlist} wishlist={wishlist} />
-    <BigEditorial />
     <CategoryShelf />
     <VideoReel />
     <Promise />

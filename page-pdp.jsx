@@ -52,7 +52,7 @@ const PDPPage = ({ slug, onAdd, onAddWishlist, wishlist }) => {
       {sticky && (
         <div style={{
           position: 'fixed', top: 84, left: 0, right: 0, zIndex: 40,
-          background: 'rgba(242, 236, 224, 0.97)', backdropFilter: 'blur(14px)',
+          background: 'rgba(255, 255, 255, 0.97)', backdropFilter: 'blur(14px)',
           borderBottom: '1px solid var(--line)',
           animation: 'fadeIn .25s var(--ease)',
         }}>
