@@ -13,9 +13,9 @@ const NAV = [
 ];
 
 const ANNOUNCEMENTS = [
-  'Complimentary shipping on orders over $150',
-  'New: Spring Editorial — Quiet Hours',
-  'Free, easy 30-day returns',
+  'Free shipping on $150+',
+  'Spring Editorial',
+  'Free returns',
 ];
 
 const Announcement = () => {
@@ -211,7 +211,6 @@ const Header = ({ cartCount, wishlistCount, onOpenCart, onOpenSearch, route }) =
             {route.startsWith('/lookbook') && <span style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: 1, background: 'var(--ink)' }} />}
           </a>
           <a href="#/about" style={{ paddingBottom: 4 }}>About</a>
-          <a href="#/journal" style={{ paddingBottom: 4 }}>Journal</a>
         </nav>
 
         {/* center: wordmark */}
@@ -311,7 +310,7 @@ const Footer = () => (
         {[
           { title: 'Shop', items: [['New', '#/shop/all'], ['Outerwear', '#/shop/outerwear'], ['Knits', '#/shop/knits'], ['Denim', '#/shop/denim'], ['Shoes', '#/shop/shoes']] },
           { title: 'Help', items: [['Contact', '#'], ['Shipping', '#'], ['Returns', '#'], ['Size guide', '#'], ['Care guide', '#']] },
-          { title: 'Studio', items: [['About us', '#/about'], ['Journal', '#/journal'], ['Lookbook', '#/lookbook'], ['Sustainability', '#'], ['Stockists', '#']] },
+          { title: 'Studio', items: [['About us', '#/about'], ['Lookbook', '#/lookbook'], ['Sustainability', '#'], ['Stockists', '#']] },
           { title: 'Follow', items: [['Instagram', '#'], ['TikTok', '#'], ['Pinterest', '#'], ['Spotify', '#']] },
         ].map(col => (
           <div key={col.title}>

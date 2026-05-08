@@ -1,22 +1,22 @@
 /* ===== RELLANI DESIGN SYSTEM ===== */
 :root {
-  /* Palette */
-  --paper: #F2ECE0;
-  --paper-2: #EAE3D4;
-  --paper-3: #E2DAC8;
-  --bone: #FBF8F1;
-  --ink: #14110D;
-  --ink-2: #2A2620;
-  --stone: #8A8276;
-  --stone-2: #B5AE9E;
-  --line: #D6CDB9;
-  --accent: #BD4A28;
-  --accent-2: #8C2F18;
+  /* Palette — white luxury */
+  --paper: #FFFFFF;
+  --paper-2: #F5F5F3;
+  --paper-3: #ECECEA;
+  --bone: #FAFAF8;
+  --ink: #0A0908;
+  --ink-2: #1A1816;
+  --stone: #8C8880;
+  --stone-2: #B5B2AA;
+  --line: #E5E3DE;
+  --accent: #C2A06A;
+  --accent-2: #9E8248;
   --moss: #2F3D2A;
   --sky: #6B8AA3;
   --plum: #4A2A3A;
   --success: #355c3b;
-  --error: #8C2F18;
+  --error: #9E3A1E;
 
   /* Type */
   --serif: "Instrument Serif", "Cormorant Garamond", Georgia, serif;

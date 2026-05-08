@@ -1,7 +1,7 @@
 // ===== RELLANI CATALOG =====
 // All imagery sourced from Unsplash (free editorial photography)
 
-const IMG = (id, w = 900) => `https://images.unsplash.com/photo-${id}?w=${w}&q=80&auto=format&fit=crop`;
+const IMG = (id, w = 1200) => `https://images.unsplash.com/photo-${id}?w=${w}&q=90&auto=format&fit=crop&crop=center`;
 
 const CATEGORIES = [
   { id: 'all', label: 'All' },
@@ -26,7 +26,7 @@ const sz = {
 const PRODUCTS = [
   // ===== OUTERWEAR =====
   {
-    id: 'p01', slug: 'aria-wool-overcoat', name: 'Silk Whisper',
+    id: 'p01', slug: 'aria-wool-overcoat', name: 'Aria Wool Overcoat',
     cat: 'outerwear', price: 248, gender: 'unisex', tags: ['new', 'editor-pick'],
     blurb: 'A relaxed, double-faced wool overcoat cut just past the knee. Unstructured shoulders, dropped sleeves, mother-of-pearl buttons.',
     detail: ['80% virgin wool, 20% cashmere', 'Double-faced, unlined construction', 'Two welt pockets, one inside chest', 'Made in Biella, Italy'],
@@ -39,7 +39,7 @@ const PRODUCTS = [
     ],
   },
   {
-    id: 'p02', slug: 'forest-quilted-jacket', name: 'Sapphire Serenade',
+    id: 'p02', slug: 'forest-quilted-jacket', name: 'Forest Quilted Jacket',
     cat: 'outerwear', price: 168, gender: 'unisex', tags: ['new'],
     blurb: 'A modern take on the country quilt, in a softened diamond stitch with corduroy collar.',
     detail: ['Recycled polyester shell', 'Down-alternative fill (RDS-free)', 'Corduroy collar trim', 'Two flap pockets, two slash'],
@@ -51,8 +51,8 @@ const PRODUCTS = [
     ],
   },
   {
-    id: 'p03', slug: 'workshop-trench', name: 'Oasis Jacket',
-    cat: 'outerwear', price: 3790, gender: 'unisex', tags: ['editor-pick'],
+    id: 'p03', slug: 'workshop-trench', name: 'Workshop Trench',
+    cat: 'outerwear', price: 379, gender: 'unisex', tags: ['editor-pick'],
     blurb: 'Our take on the classic. Cotton-gabardine, raglan sleeves, removable belt, lightly oversized.',
     sizes: sz.cloth, sizeKind: 'cloth',
     colors: [
@@ -63,7 +63,7 @@ const PRODUCTS = [
 
   // ===== KNITS =====
   {
-    id: 'p04', slug: 'soft-merino-crew', name: 'Champagne Cascade',
+    id: 'p04', slug: 'soft-merino-crew', name: 'Soft Merino Crew',
     cat: 'knits', price: 118, gender: 'unisex', tags: [],
     blurb: 'Featherweight merino in a relaxed crewneck. Spun in Italy on slow gauges for an even, supple hand.',
     sizes: sz.cloth, sizeKind: 'cloth',
@@ -75,7 +75,7 @@ const PRODUCTS = [
     ],
   },
   {
-    id: 'p05', slug: 'fisher-cable-knit', name: 'ZEBRA Stylist',
+    id: 'p05', slug: 'fisher-cable-knit', name: 'Fisher Cable Knit',
     cat: 'knits', price: 188, gender: 'unisex', tags: ['new'],
     blurb: 'A heirloom cable knit reimagined in undyed wool. Hand-finished hems.',
     sizes: sz.cloth, sizeKind: 'cloth',
@@ -85,7 +85,7 @@ const PRODUCTS = [
     ],
   },
   {
-    id: 'p06', slug: 'house-half-zip', name: 'Ember Embrace XZ',
+    id: 'p06', slug: 'house-half-zip', name: 'House Half-Zip',
     cat: 'knits', price: 148, gender: 'unisex', tags: [],
     blurb: 'A weighty cotton-cashmere half-zip with our signature ribbed funnel collar.',
     sizes: sz.cloth, sizeKind: 'cloth',
@@ -97,7 +97,7 @@ const PRODUCTS = [
 
   // ===== TOPS =====
   {
-    id: 'p07', slug: 'studio-poplin-shirt', name: 'ZXB T-Shirt',
+    id: 'p07', slug: 'studio-poplin-shirt', name: 'Studio Poplin Shirt',
     cat: 'tops', price: 98, gender: 'unisex', tags: [],
     blurb: 'A weekday workhorse in long-staple cotton. Slightly relaxed through the body, mother-of-pearl buttons.',
     sizes: sz.cloth, sizeKind: 'cloth',
@@ -108,7 +108,7 @@ const PRODUCTS = [
     ],
   },
   {
-    id: 'p08', slug: 'heavy-cotton-tee', name: 'Denim T-Shirt',
+    id: 'p08', slug: 'heavy-cotton-tee', name: 'Heavy Cotton Tee',
     cat: 'tops', price: 48, gender: 'unisex', tags: ['bestseller'],
     blurb: 'A 240gsm cotton tee that holds its shape. Garment-dyed, pre-shrunk.',
     sizes: sz.cloth, sizeKind: 'cloth',
@@ -120,7 +120,7 @@ const PRODUCTS = [
     ],
   },
   {
-    id: 'p09', slug: 'linen-camp-shirt', name: 'Lace Enigma Skirt',
+    id: 'p09', slug: 'linen-camp-shirt', name: 'Linen Camp Shirt',
     cat: 'tops', price: 88, gender: 'unisex', tags: ['new'],
     blurb: 'A breezy short-sleeve in 100% European linen. Open camp collar.',
     sizes: sz.cloth, sizeKind: 'cloth',
@@ -130,7 +130,7 @@ const PRODUCTS = [
     ],
   },
   {
-    id: 'p10', slug: 'silk-cami', name: 'Golden Hour Jumpsuit',
+    id: 'p10', slug: 'silk-cami', name: 'Silk Cami',
     cat: 'tops', price: 118, gender: 'unisex', tags: [],
     blurb: 'A bias-cut silk cami with adjustable straps. Wear under, wear out.',
     sizes: sz.cloth, sizeKind: 'cloth',
@@ -142,7 +142,7 @@ const PRODUCTS = [
 
   // ===== DENIM =====
   {
-    id: 'p11', slug: 'archive-straight-jean', name: 'Flower Black Hat',
+    id: 'p11', slug: 'archive-straight-jean', name: 'Archive Straight Jean',
     cat: 'denim', price: 138, gender: 'unisex', tags: ['bestseller'],
     blurb: 'A true straight leg in 13.5oz Japanese selvedge. Sits at the natural waist.',
     sizes: sz.waist, sizeKind: 'waist',
@@ -153,7 +153,7 @@ const PRODUCTS = [
     ],
   },
   {
-    id: 'p12', slug: 'wide-leg-denim', name: 'Moonstone Muse Hat',
+    id: 'p12', slug: 'wide-leg-denim', name: 'Wide-Leg Denim',
     cat: 'denim', price: 158, gender: 'unisex', tags: [],
     blurb: 'A relaxed wide-leg with a high rise. The kind of jean that does the work for you.',
     sizes: sz.waist, sizeKind: 'waist',
@@ -328,6 +328,167 @@ const PRODUCTS = [
     colors: [
       { name: 'Gold', hex: '#C8A35C', img: '1605100804763-247f67b3557e' },
       { name: 'Silver', hex: '#C8C8CE', img: '1611591437281-460bfbe1220a' },
+    ],
+  },
+
+  // ===== ADDITIONAL OUTERWEAR =====
+  {
+    id: 'p29', slug: 'shearling-collar-coat', name: 'Shearling Collar Coat',
+    cat: 'outerwear', price: 428, gender: 'unisex', tags: ['new', 'editor-pick'],
+    blurb: 'A long wool coat with a detachable shearling collar. Structured shoulders, single-breasted.',
+    detail: ['70% wool, 30% polyester shell', 'Genuine shearling collar (detachable)', 'Two welt pockets', 'Made in Portugal'],
+    care: ['Dry clean only', 'Store on a padded hanger'],
+    sizes: sz.cloth, sizeKind: 'cloth',
+    colors: [
+      { name: 'Camel', hex: '#B59874', img: '1591047139829-d91aecb6caea' },
+      { name: 'Black', hex: '#0E0C0A', img: '1539533018447-63fcce2678e3' },
+    ],
+  },
+  {
+    id: 'p30', slug: 'bomber-jacket', name: 'Satin Bomber',
+    cat: 'outerwear', price: 198, gender: 'unisex', tags: ['new'],
+    blurb: 'A relaxed bomber in silk-like satin. Ribbed cuffs and hem.',
+    detail: ['100% polyester satin', 'Ribbed collar, cuffs and hem', 'Two side pockets, one chest'],
+    care: ['Machine wash cold, gentle', 'Hang to dry'],
+    sizes: sz.cloth, sizeKind: 'cloth',
+    colors: [
+      { name: 'Champagne', hex: '#D9C5A1', img: '1583743814966-8936f5b7be1a' },
+      { name: 'Forest', hex: '#2F3D2A', img: '1551488831-00ddcb6c6bd3' },
+    ],
+  },
+
+  // ===== ADDITIONAL KNITS =====
+  {
+    id: 'p31', slug: 'ribbed-tank-knit', name: 'Ribbed Tank',
+    cat: 'knits', price: 88, gender: 'unisex', tags: [],
+    blurb: 'A fine-rib knit tank in cotton-modal. Wear alone or underneath.',
+    sizes: sz.cloth, sizeKind: 'cloth',
+    colors: [
+      { name: 'Bone', hex: '#EAE3D4', img: '1556905055-8f358a7a47b2' },
+      { name: 'Slate', hex: '#5A6470', img: '1620012253295-c15cc3e65df4' },
+      { name: 'Black', hex: '#0E0C0A', img: '1611312449412-6cefac5dc3e4' },
+    ],
+  },
+  {
+    id: 'p32', slug: 'oversized-roll-neck', name: 'Oversized Roll Neck',
+    cat: 'knits', price: 158, gender: 'unisex', tags: ['editor-pick'],
+    blurb: 'A chunky, oversized roll neck in brushed merino. Drops to mid-thigh.',
+    sizes: sz.cloth, sizeKind: 'cloth',
+    colors: [
+      { name: 'Cream', hex: '#F0E8D4', img: '1576566588028-4147f3842f27' },
+      { name: 'Rust', hex: '#BD4A28', img: '1490481651871-ab68de25d43d' },
+    ],
+  },
+
+  // ===== ADDITIONAL TOPS =====
+  {
+    id: 'p33', slug: 'boxy-oxford-shirt', name: 'Boxy Oxford Shirt',
+    cat: 'tops', price: 108, gender: 'unisex', tags: ['new'],
+    blurb: 'An oversized oxford in double-woven cotton. Dropped shoulders.',
+    sizes: sz.cloth, sizeKind: 'cloth',
+    colors: [
+      { name: 'White', hex: '#FBF8F1', img: '1602810318383-e386cc2a3ccf' },
+      { name: 'Blue', hex: '#9BB7CE', img: '1564584217132-2271feaeb3c5' },
+      { name: 'Stripe', hex: '#7A8FA3', img: '1598033129183-c4f50c736f10' },
+    ],
+  },
+  {
+    id: 'p34', slug: 'sleeveless-shell', name: 'Sleeveless Shell',
+    cat: 'tops', price: 68, gender: 'unisex', tags: [],
+    blurb: 'A clean-cut shell in 100% silk charmeuse. Pairs with everything.',
+    sizes: sz.cloth, sizeKind: 'cloth',
+    colors: [
+      { name: 'Ivory', hex: '#EAE3D4', img: '1571945153237-4929e783af4a' },
+      { name: 'Black', hex: '#0E0C0A', img: '1539109136881-3be0616acf4b' },
+    ],
+  },
+
+  // ===== ADDITIONAL TROUSERS =====
+  {
+    id: 'p35', slug: 'relaxed-linen-trouser', name: 'Relaxed Linen Trouser',
+    cat: 'trousers', price: 118, gender: 'unisex', tags: ['new'],
+    blurb: 'An easy, wide-leg trouser in stone-washed linen. Elastic waist.',
+    sizes: sz.waist, sizeKind: 'waist',
+    colors: [
+      { name: 'Oat', hex: '#E5DDC8', img: '1490578474895-699cd4e2cf59' },
+      { name: 'Navy', hex: '#1E2A3F', img: '1473966968600-fa801b869a1a' },
+    ],
+  },
+  {
+    id: 'p36', slug: 'tailored-short', name: 'Tailored Short',
+    cat: 'trousers', price: 98, gender: 'unisex', tags: [],
+    blurb: 'A knee-length short with a subtle pleat. Tropical wool.',
+    sizes: sz.waist, sizeKind: 'waist',
+    colors: [
+      { name: 'Stone', hex: '#A89F8E', img: '1593032465175-481ac7f401a0' },
+      { name: 'Charcoal', hex: '#3A3631', img: '1624378439575-d8705ad7ae80' },
+    ],
+  },
+
+  // ===== ADDITIONAL DRESSES =====
+  {
+    id: 'p37', slug: 'wrap-midi-dress', name: 'Wrap Midi Dress',
+    cat: 'dresses', price: 168, gender: 'unisex', tags: ['new', 'editor-pick'],
+    blurb: 'A true-wrap midi in matte crepe. Adjustable tie.',
+    sizes: sz.cloth, sizeKind: 'cloth',
+    colors: [
+      { name: 'Sage', hex: '#A4AE99', img: '1572804013309-59a88b7e92f1' },
+      { name: 'Ink', hex: '#14110D', img: '1539109136881-3be0616acf4b' },
+    ],
+  },
+  {
+    id: 'p38', slug: 'strapless-tube-dress', name: 'Strapless Tube Dress',
+    cat: 'dresses', price: 138, gender: 'unisex', tags: [],
+    blurb: 'A streamlined tube dress in bonded cotton. Boning at the bust.',
+    sizes: sz.cloth, sizeKind: 'cloth',
+    colors: [
+      { name: 'Black', hex: '#0E0C0A', img: '1583744946564-b52ac1c389c8' },
+      { name: 'Ecru', hex: '#EFE6D2', img: '1571945153237-4929e783af4a' },
+    ],
+  },
+
+  // ===== ADDITIONAL SHOES =====
+  {
+    id: 'p39', slug: 'suede-chelsea-boot', name: 'Suede Chelsea Boot',
+    cat: 'shoes', price: 298, gender: 'unisex', tags: ['editor-pick'],
+    blurb: 'A minimalist Chelsea boot in water-resistant suede. Leather insole.',
+    sizes: sz.shoe, sizeKind: 'shoe',
+    colors: [
+      { name: 'Tan', hex: '#A87B53', img: '1614252369475-531eba835eb1' },
+      { name: 'Black', hex: '#0E0C0A', img: '1533867617858-e7b97e060509' },
+    ],
+  },
+  {
+    id: 'p40', slug: 'slip-on-mule', name: 'Leather Mule',
+    cat: 'shoes', price: 178, gender: 'unisex', tags: ['new'],
+    blurb: 'A slip-on mule in smooth nappa leather. Square toe, stacked heel.',
+    sizes: sz.shoe, sizeKind: 'shoe',
+    colors: [
+      { name: 'Stone', hex: '#A89F8E', img: '1582588678413-dbf45f4823e9' },
+      { name: 'Black', hex: '#0E0C0A', img: '1606107557195-0e29a4b5b4aa' },
+    ],
+  },
+
+  // ===== ADDITIONAL ACCESSORIES =====
+  {
+    id: 'p41', slug: 'crossbody-bag', name: 'Mini Crossbody',
+    cat: 'accessories', price: 248, gender: 'unisex', tags: ['new'],
+    blurb: 'A compact crossbody in full-grain leather. Adjustable strap, two compartments.',
+    sizes: sz.one, sizeKind: 'one',
+    colors: [
+      { name: 'Cognac', hex: '#7A4426', img: '1542272604-787c3835535d' },
+      { name: 'Black', hex: '#0E0C0A', img: '1483985988355-763728e1935b' },
+    ],
+  },
+  {
+    id: 'p42', slug: 'cashmere-beanie', name: 'Cashmere Beanie',
+    cat: 'accessories', price: 78, gender: 'unisex', tags: [],
+    blurb: 'A double-knit beanie in 100% cashmere. Ribbed cuff folds up or down.',
+    sizes: sz.one, sizeKind: 'one',
+    colors: [
+      { name: 'Camel', hex: '#B59874', img: '1521369909029-2afed882baee' },
+      { name: 'Charcoal', hex: '#3A3631', img: '1490481651871-ab68de25d43d' },
+      { name: 'Ivory', hex: '#EFE6D2', img: '1582142306909-195724d33ffc' },
     ],
   },
 ];

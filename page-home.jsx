@@ -565,6 +565,69 @@ const Promise = () => {
   );
 };
 
+// Video Reel — Pinterest / TikTok style model clips
+const VIDEO_1 = 'videos/balance%20trend%20comfort%20and%20everyday%20function%20and%20make%20your%20-%20Pin-5699937024323847.mp4';
+const VIDEO_2 = 'videos/Modern%20bridal%20shower%20decor%20ideas%20that%20look%20expensive%20while%20staying%20practical%20realistic%20and%20beginner%20friendly%20for%20anyone%20planning%20a%20beautiful.mp4';
+
+const VideoReel = () => (
+  <section style={{ padding: '120px 32px 0' }}>
+    <div className="container" style={{ marginBottom: 36, display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', flexWrap: 'wrap', gap: 16 }}>
+      <div>
+        <div className="t-eyebrow" style={{ marginBottom: 14 }}>The Edit</div>
+        <h2 className="t-display" style={{ fontSize: 'clamp(32px, 4vw, 52px)', margin: 0 }}>
+          Wear it in <em style={{ fontStyle: 'italic' }}>motion.</em>
+        </h2>
+      </div>
+      <a href="#/shop/all" className="t-link" style={{ fontSize: 13.5, display: 'flex', alignItems: 'center', gap: 8 }}>
+        Shop the look <Icon name="arrow-diag" size={14} />
+      </a>
+    </div>
+
+    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, maxHeight: 760 }}>
+      {[VIDEO_1, VIDEO_2].map((src, i) => (
+        <div key={i} style={{
+          position: 'relative',
+          borderRadius: 'var(--r-lg)',
+          overflow: 'hidden',
+          background: 'var(--paper-2)',
+          aspectRatio: '9 / 14',
+        }}>
+          <video
+            autoPlay muted loop playsInline
+            src={src}
+            style={{
+              width: '100%', height: '100%',
+              objectFit: 'cover',
+              display: 'block',
+            }}
+          />
+          <div style={{
+            position: 'absolute', inset: 0,
+            background: 'linear-gradient(180deg, rgba(10,9,8,0) 55%, rgba(10,9,8,0.52) 100%)',
+            pointerEvents: 'none',
+          }} />
+          <div style={{
+            position: 'absolute', bottom: 24, left: 24, right: 24,
+            color: 'var(--bone)',
+          }}>
+            <div style={{ fontFamily: 'var(--serif)', fontSize: 22, lineHeight: 1.15, marginBottom: 6 }}>
+              {i === 0 ? 'Spring Collection' : 'Studio Essentials'}
+            </div>
+            <a href="#/shop/all" style={{
+              display: 'inline-flex', alignItems: 'center', gap: 8,
+              fontSize: 12, letterSpacing: '0.1em', textTransform: 'uppercase',
+              borderBottom: '1px solid rgba(251,248,241,0.55)', paddingBottom: 2,
+              color: 'var(--bone)',
+            }}>
+              Shop now <Icon name="arrow" size={10} />
+            </a>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+);
+
 // Instagram strip
 const InstagramStrip = () => {
   const photos = [
@@ -611,6 +674,7 @@ const HomePage = ({ onQuickView, onAddWishlist, wishlist }) => (
     <FeaturedBentoGrid onQuickView={onQuickView} onAddWishlist={onAddWishlist} wishlist={wishlist} />
     <BigEditorial />
     <CategoryShelf />
+    <VideoReel />
     <Promise />
     <InstagramStrip />
   </div>
