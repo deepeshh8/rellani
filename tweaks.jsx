@@ -1,6 +1,6 @@
 // ===== TWEAKS PANEL =====
 const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
-  "palette": "warm",
+  "palette": "white",
   "headline": "instrument",
   "cardStyle": "image-info",
   "density": 4,
@@ -9,6 +9,7 @@ const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
 }/*EDITMODE-END*/;
 
 const PALETTES = {
+  white: { paper: '#FFFFFF', paper2: '#F5F5F3', paper3: '#ECECEA', bone: '#FAFAF8', ink: '#0A0908', ink2: '#1A1816', stone: '#8C8880', line: '#E5E3DE', accent: '#C2A06A' },
   warm: { paper: '#F2ECE0', paper2: '#EAE3D4', paper3: '#E2DAC8', bone: '#FBF8F1', ink: '#14110D', ink2: '#2A2620', stone: '#8A8276', line: '#D6CDB9', accent: '#BD4A28' },
   cool: { paper: '#EDEEEF', paper2: '#E2E4E6', paper3: '#D4D7DA', bone: '#FBFBFB', ink: '#0C1014', ink2: '#1F252B', stone: '#7A828A', line: '#CACDD0', accent: '#3A6B7A' },
   noir: { paper: '#15110D', paper2: '#1E1A15', paper3: '#27221C', bone: '#F4EFE3', ink: '#F4EFE3', ink2: '#D4CCB8', stone: '#9A8F7A', line: '#332D24', accent: '#C9885A' },
@@ -50,13 +51,14 @@ const RellaniTweaks = ({ tweaks, setTweak }) => {
           value={tweaks.palette}
           onChange={v => setTweak('palette', v)}
           options={[
+            ['#FFFFFF', '#0A0908', '#C2A06A'],
             ['#F2ECE0', '#14110D', '#BD4A28'],
             ['#EDEEEF', '#0C1014', '#3A6B7A'],
             ['#15110D', '#F4EFE3', '#C9885A'],
             ['#E9EBDF', '#1A1F18', '#5C6B3F'],
           ]}
-          labels={['Warm paper', 'Cool stone', 'Noir', 'Sage']}
-          values={['warm', 'cool', 'noir', 'sage']}
+          labels={['White luxury', 'Warm paper', 'Cool stone', 'Noir', 'Sage']}
+          values={['white', 'warm', 'cool', 'noir', 'sage']}
         />
       </TweakSection>
 
@@ -88,7 +90,7 @@ const RellaniTweaks = ({ tweaks, setTweak }) => {
 
 // Custom TweakColor that supports labeled palette swatches
 const TweakColor = ({ value, onChange, options, labels = [], values = [] }) => (
-  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 8 }}>
+  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 8, gridAutoRows: 'auto' }}>
     {options.map((palette, i) => {
       const isActive = (values[i] || palette[0]) === value;
       return (
