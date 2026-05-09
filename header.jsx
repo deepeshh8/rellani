@@ -285,8 +285,6 @@ const Header = ({ cartCount, wishlistCount, onOpenCart, onOpenSearch, route }) =
         borderBottom: scrolled ? '1px solid var(--line)' : '1px solid transparent',
         transition: 'border-color .2s',
       }}>
-        <Announcement />
-
         {/* Main nav row */}
         <div className="header-main-row" style={{
           display: 'grid',
