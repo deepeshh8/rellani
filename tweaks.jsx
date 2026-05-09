@@ -1,6 +1,6 @@
 // ===== TWEAKS PANEL =====
 const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
-  "palette": "white",
+  "palette": "sand",
   "headline": "instrument",
   "cardStyle": "image-info",
   "density": 4,
@@ -9,8 +9,9 @@ const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
 }/*EDITMODE-END*/;
 
 const PALETTES = {
+  sand:  { paper: '#F5F0E8', paper2: '#EDE8DF', paper3: '#E2DAD0', bone: '#FAF7F2', ink: '#2D2926', ink2: '#4C4540', stone: '#9A9088', line: '#D8D0C4', accent: '#9A9088' },
   white: { paper: '#FFFFFF', paper2: '#F5F5F3', paper3: '#ECECEA', bone: '#FAFAF8', ink: '#0A0908', ink2: '#1A1816', stone: '#8C8880', line: '#E5E3DE', accent: '#C2A06A' },
-  warm: { paper: '#F2ECE0', paper2: '#EAE3D4', paper3: '#E2DAC8', bone: '#FBF8F1', ink: '#14110D', ink2: '#2A2620', stone: '#8A8276', line: '#D6CDB9', accent: '#BD4A28' },
+  warm:  { paper: '#F2ECE0', paper2: '#EAE3D4', paper3: '#E2DAC8', bone: '#FBF8F1', ink: '#14110D', ink2: '#2A2620', stone: '#8A8276', line: '#D6CDB9', accent: '#BD4A28' },
   cool: { paper: '#EDEEEF', paper2: '#E2E4E6', paper3: '#D4D7DA', bone: '#FBFBFB', ink: '#0C1014', ink2: '#1F252B', stone: '#7A828A', line: '#CACDD0', accent: '#3A6B7A' },
   noir: { paper: '#15110D', paper2: '#1E1A15', paper3: '#27221C', bone: '#F4EFE3', ink: '#F4EFE3', ink2: '#D4CCB8', stone: '#9A8F7A', line: '#332D24', accent: '#C9885A' },
   sage: { paper: '#E9EBDF', paper2: '#DDE0CF', paper3: '#CFD3BE', bone: '#FAFAF2', ink: '#1A1F18', ink2: '#2D3328', stone: '#7E8474', line: '#C4C9B5', accent: '#5C6B3F' },
@@ -57,8 +58,8 @@ const RellaniTweaks = ({ tweaks, setTweak }) => {
             ['#15110D', '#F4EFE3', '#C9885A'],
             ['#E9EBDF', '#1A1F18', '#5C6B3F'],
           ]}
-          labels={['White luxury', 'Warm paper', 'Cool stone', 'Noir', 'Sage']}
-          values={['white', 'warm', 'cool', 'noir', 'sage']}
+          labels={['Sand (default)', 'White', 'Warm paper', 'Noir', 'Sage']}
+          values={['sand', 'white', 'warm', 'noir', 'sage']}
         />
       </TweakSection>
 

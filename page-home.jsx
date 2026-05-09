@@ -1,9 +1,9 @@
 // ===== HOME PAGE =====
 const HomeHero = () => {
   const slides = [
-    { img: '1490481651871-ab68de25d43d', title: 'New Season', sub: 'Spring — Summer 2026' },
-    { img: '1539109136881-3be0616acf4b', title: 'Woman', sub: 'New Collection' },
-    { img: '1551232864-3f0890e580d9', title: 'Essentials', sub: 'Always In Stock' },
+    { img: '1571945153237-4929e783af4a', title: 'Dubai Dreamy', sub: 'New Collection 2026' },
+    { img: '1529139374559-ee8e0fe74d5b', title: 'By the Water', sub: 'Resort & Swim' },
+    { img: '1594938890-d380a6a2f06e', title: 'Effortless', sub: 'Ready to Wear' },
   ];
   const [idx, setIdx] = React.useState(0);
   const next = () => setIdx(i => (i + 1) % slides.length);
@@ -97,7 +97,7 @@ const Marquee = () => (
     <div style={{ display: 'flex', gap: 64, whiteSpace: 'nowrap', animation: 'marquee 28s linear infinite' }}>
       {Array(2).fill(0).map((_, i) => (
         <React.Fragment key={i}>
-          {['New Collection', 'Free Shipping $150+', 'Woman', 'Man', 'New In', 'Free Returns', 'Spring — Summer 2026', 'Accessories'].map(text => (
+          {['New Collection', 'Free Shipping $150+', 'Ready to Wear', 'Swim', 'New In', 'Free Returns', 'Resort 2026', 'Resortwear'].map(text => (
             <span key={text} style={{
               fontSize: 11, letterSpacing: '0.18em', textTransform: 'uppercase',
               color: 'var(--ink)', display: 'inline-flex', alignItems: 'center', gap: 64,
@@ -117,10 +117,10 @@ const Marquee = () => (
 const FeaturedBentoGrid = ({ onQuickView, onAddWishlist, wishlist }) => {
   const [activeTab, setActiveTab] = React.useState('new');
   const tabs = [
-    { id: 'new', label: 'New In' },
-    { id: 'outerwear', label: 'Outerwear' },
-    { id: 'dresses', label: 'Dresses' },
-    { id: 'knits', label: 'Knitwear' },
+    { id: 'new',          label: 'New In' },
+    { id: 'ready-to-wear',label: 'Ready to Wear' },
+    { id: 'swim',         label: 'Swim' },
+    { id: 'resortwear',   label: 'Resortwear' },
   ];
 
   const products = React.useMemo(() => {
@@ -164,16 +164,59 @@ const FeaturedBentoGrid = ({ onQuickView, onAddWishlist, wishlist }) => {
   );
 };
 
+// Our Values — editorial 3-up section
+const OurValues = () => {
+  const values = [
+    {
+      img: '1558769132-cb1aea458c5e',
+      title: 'Effortless Elegance',
+      body: 'Looking flawless should never feel like a job. We believe your wardrobe should work as flawlessly as you do, making sure you look and feel stunning, no matter how busy your day.',
+    },
+    {
+      img: '1594938890-d380a6a2f06e',
+      title: 'The Body is Art',
+      body: 'Our designs treat the body as a work of art in motion — marrying Dubai\'s extravagant style with practical everyday wear. Because fashion can be fun and just be art.',
+    },
+    {
+      img: '1529139374559-ee8e0fe74d5b',
+      title: 'Ambition in Neutrals',
+      body: 'We reject visual chaos. Our neutral palette is a power move. It grounds your look in authority, making sure your effortless combination always makes the loudest statement.',
+    },
+  ];
+
+  return (
+    <section style={{ padding: '100px 40px 0', textAlign: 'center' }}>
+      <h2 style={{ fontFamily: 'var(--serif)', fontStyle: 'italic', fontSize: 'clamp(28px, 4vw, 48px)', fontWeight: 400, margin: '0 0 56px', letterSpacing: '-0.01em' }}>
+        Our <em>Values</em>
+      </h2>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 24 }}>
+        {values.map(v => (
+          <div key={v.title}>
+            <div style={{ aspectRatio: '3 / 4', overflow: 'hidden', marginBottom: 24, background: 'var(--paper-2)' }}>
+              <img src={IMG(v.img, 900)} alt={v.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+            </div>
+            <h3 style={{ fontFamily: 'var(--serif)', fontStyle: 'italic', fontSize: 20, fontWeight: 400, margin: '0 0 12px' }}>{v.title}</h3>
+            <p style={{ fontSize: 13, color: 'var(--stone)', lineHeight: 1.7, maxWidth: 320, margin: '0 auto' }}>{v.body}</p>
+          </div>
+        ))}
+      </div>
+      <div style={{ marginTop: 48, fontSize: 11, letterSpacing: '0.2em', textTransform: 'uppercase', color: 'var(--stone)' }}>
+        live the dream. dress for it
+      </div>
+    </section>
+  );
+};
+
 // Zara-style category section — large 2-up then 3-up
 const CategoryShelf = () => {
   const topCats = [
-    { id: 'outerwear', label: 'Woman', img: '1539109136881-3be0616acf4b' },
-    { id: 'denim', label: 'Man', img: '1583743814966-8936f5b7be1a' },
+    { id: 'ready-to-wear', label: 'Ready to Wear', img: '1571945153237-4929e783af4a' },
+    { id: 'swim',          label: 'Swim',           img: '1529139374559-ee8e0fe74d5b' },
   ];
   const bottomCats = [
-    { id: 'knits', label: 'Knitwear', img: '1576566588028-4147f3842f27' },
-    { id: 'dresses', label: 'Dresses', img: '1572804013309-59a88b7e92f1' },
-    { id: 'accessories', label: 'Accessories', img: '1483985988355-763728e1935b' },
+    { id: 'resortwear', label: 'Resortwear', img: '1490578474895-699cd4e2cf59' },
+    { id: 'sets',       label: 'Sets',        img: '1594938890-d380a6a2f06e' },
+    { id: 'all',        label: 'View All',    img: '1558769132-cb1aea458c5e' },
   ];
 
   const CatCard = ({ cat, height = '70vh' }) => {
@@ -242,8 +285,12 @@ const Promise = () => {
 // Instagram strip
 const InstagramStrip = () => {
   const photos = [
-    '1571945153237-4929e783af4a', '1551488831-00ddcb6c6bd3', '1490481651871-ab68de25d43d',
-    '1583743814966-8936f5b7be1a', '1542272604-787c3835535d', '1591047139829-d91aecb6caea',
+    '1571945153237-4929e783af4a',
+    '1529139374559-ee8e0fe74d5b',
+    '1594938890-d380a6a2f06e',
+    '1558769132-cb1aea458c5e',
+    '1515886657613-9f3515b0c78f',
+    '1572804013309-59a88b7e92f1',
   ];
   return (
     <section style={{ padding: '120px 0 0' }}>
@@ -283,6 +330,7 @@ const HomePage = ({ onQuickView, onAddWishlist, wishlist }) => (
     <HomeHero />
     <Marquee />
     <FeaturedBentoGrid onQuickView={onQuickView} onAddWishlist={onAddWishlist} wishlist={wishlist} />
+    <OurValues />
     <CategoryShelf />
     <Promise />
     <InstagramStrip />

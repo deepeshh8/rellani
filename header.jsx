@@ -177,7 +177,7 @@ const MobileMenu = ({ open, onClose, route, onOpenSearch, onOpenCart, cartCount 
   <div className={`mobile-menu-overlay${open ? ' open' : ''}`}>
     {/* top bar */}
     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 16px', height: 48, borderBottom: '1px solid var(--line)', flexShrink: 0 }}>
-      <a href="#/" onClick={onClose} style={{ letterSpacing: '0.18em', fontSize: 16, textTransform: 'uppercase', fontWeight: 400 }}>RELLANI</a>
+      <a href="#/" onClick={onClose} style={{ fontFamily: 'var(--serif)', fontStyle: 'italic', fontSize: 22, fontWeight: 400 }}>rellani</a>
       <button onClick={onClose} className="icon-btn" aria-label="Close">
         <Icon name="close" size={20} stroke={1.3} />
       </button>
@@ -313,8 +313,8 @@ const Header = ({ cartCount, wishlistCount, onOpenCart, onOpenSearch, route }) =
           </div>
 
           {/* Center wordmark */}
-          <a href="#/" className="header-wordmark" style={{ justifySelf: 'center', letterSpacing: '0.18em', fontSize: 20, textTransform: 'uppercase', fontWeight: 400 }}>
-            RELLANI
+          <a href="#/" className="header-wordmark" style={{ justifySelf: 'center', fontFamily: 'var(--serif)', fontStyle: 'italic', fontSize: 26, fontWeight: 400, letterSpacing: '0.02em' }}>
+            rellani
           </a>
 
           {/* Right: desktop icons | mobile search+bag only */}
@@ -384,9 +384,9 @@ const Footer = () => (
     {/* Links */}
     <div className="footer-links" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', padding: '48px 40px 40px', gap: 32 }}>
       {[
-        { title: 'Shop', items: [['New In', '#/shop/all'], ['Outerwear', '#/shop/outerwear'], ['Knitwear', '#/shop/knits'], ['Denim', '#/shop/denim'], ['Dresses', '#/shop/dresses'], ['Shoes', '#/shop/shoes'], ['Accessories', '#/shop/accessories']] },
-        { title: 'Help', items: [['Contact', '#'], ['Shipping Info', '#'], ['Returns', '#'], ['Size Guide', '#'], ['Care Guide', '#'], ['Track Order', '#']] },
-        { title: 'Company', items: [['About Rellani', '#/about'], ['Lookbook', '#/lookbook'], ['Sustainability', '#'], ['Careers', '#'], ['Stockists', '#']] },
+        { title: 'Ready to Wear', items: [['Shop All', '#/shop/all'], ['Ready to Wear', '#/shop/ready-to-wear'], ['Swim', '#/shop/swim'], ['Resortwear', '#/shop/resortwear'], ['Sets', '#/shop/sets']] },
+        { title: 'Help', items: [['Contact', '#'], ['Shipping & Returns', '#'], ['Size Guide', '#'], ['Composition & Care', '#'], ['Track Order', '#']] },
+        { title: 'Rellani World', items: [['About Us', '#/about'], ['Our Values', '#/about'], ['Lookbook', '#/lookbook'], ['Our Newsletter', '#']] },
         { title: 'Follow', items: [['Instagram', '#'], ['TikTok', '#'], ['Pinterest', '#'], ['Spotify', '#']] },
       ].map(col => (
         <div key={col.title}>
@@ -401,13 +401,20 @@ const Footer = () => (
     </div>
 
     {/* Bottom bar */}
+    {/* Large wordmark */}
+    <div style={{ padding: '0 40px 0', overflow: 'hidden', borderTop: '1px solid var(--line)' }}>
+      <div style={{ fontFamily: 'var(--serif)', fontStyle: 'italic', fontSize: 'clamp(72px, 14vw, 180px)', lineHeight: 0.85, color: 'var(--line)', letterSpacing: '-0.02em', userSelect: 'none', paddingBottom: 0 }}>
+        rellani
+      </div>
+    </div>
+
     <div className="footer-bottom" style={{
       borderTop: '1px solid var(--line)',
       padding: '20px 40px',
       display: 'flex', justifyContent: 'space-between', alignItems: 'center',
       fontSize: 11, color: 'var(--stone)', letterSpacing: '0.04em',
     }}>
-      <div style={{ letterSpacing: '0.18em', fontWeight: 400 }}>RELLANI © 2026</div>
+      <div>© 2026 Rellani. All rights reserved.</div>
       <div className="footer-bottom-links" style={{ display: 'flex', gap: 24 }}>
         <a href="#" style={{ color: 'inherit' }}>Privacy Policy</a>
         <a href="#" style={{ color: 'inherit' }}>Terms of Use</a>
