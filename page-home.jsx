@@ -16,7 +16,7 @@ const HomeHero = () => {
   }, []);
 
   return (
-    <section style={{ position: 'relative', width: '100%', height: '90vh', overflow: 'hidden', background: '#f0f0f0' }}>
+    <section className="hero-full" style={{ position: 'relative', width: '100%', height: '90vh', overflow: 'hidden', background: '#f0f0f0' }}>
       {slides.map((s, i) => (
         <img key={i} src={IMG(s.img, 2000)} alt=""
           style={{
@@ -36,7 +36,7 @@ const HomeHero = () => {
       }} />
 
       {/* Bottom text */}
-      <div style={{
+      <div className="hero-bottom" style={{
         position: 'absolute', bottom: 0, left: 0, right: 0,
         padding: '40px 40px 44px',
         color: '#fff',
@@ -46,7 +46,7 @@ const HomeHero = () => {
           <div style={{ fontSize: 11, letterSpacing: '0.2em', textTransform: 'uppercase', marginBottom: 10, opacity: 0.9 }}>
             {slide.sub}
           </div>
-          <h1 style={{
+          <h1 className="hero-title" style={{
             fontFamily: 'var(--serif)',
             fontSize: 'clamp(48px, 8vw, 96px)',
             lineHeight: 0.95, letterSpacing: '-0.02em',
@@ -129,9 +129,9 @@ const FeaturedBentoGrid = ({ onQuickView, onAddWishlist, wishlist }) => {
   }, [activeTab]);
 
   return (
-    <section style={{ padding: '64px 40px 0' }}>
+    <section className="featured-section" style={{ padding: '64px 40px 0' }}>
       {/* Tab row */}
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 32, borderBottom: '1px solid var(--line)', paddingBottom: 16 }}>
+      <div className="featured-tab-row" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 32, borderBottom: '1px solid var(--line)', paddingBottom: 16 }}>
         <div style={{ display: 'flex', gap: 32 }}>
           {tabs.map(t => (
             <button key={t.id} onClick={() => setActiveTab(t.id)} style={{
@@ -145,11 +145,11 @@ const FeaturedBentoGrid = ({ onQuickView, onAddWishlist, wishlist }) => {
             }}>{t.label}</button>
           ))}
         </div>
-        <a href="#/shop/all" style={{ fontSize: 11, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--stone)', borderBottom: '1px solid var(--stone)', paddingBottom: 1 }}>View all</a>
+        <a href="#/shop/all" className="featured-view-all" style={{ fontSize: 11, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--stone)', borderBottom: '1px solid var(--stone)', paddingBottom: 1 }}>View all</a>
       </div>
 
-      {/* Product grid — 4 columns */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '4px 16px' }}>
+      {/* Product grid — 4 columns desktop, 2 mobile */}
+      <div className="featured-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '4px 16px' }}>
         {products.map(p => (
           <ProductCard
             key={p.id}
@@ -182,7 +182,7 @@ const CategoryShelf = () => {
       <a href={`#/shop/${cat.id}`}
         onMouseEnter={() => setHov(true)}
         onMouseLeave={() => setHov(false)}
-        style={{ position: 'relative', display: 'block', height, overflow: 'hidden', background: '#f0f0f0' }}
+        className="cat-card" style={{ position: 'relative', display: 'block', height, overflow: 'hidden', background: '#f0f0f0' }}
       >
         <img src={IMG(cat.img, 1200)} alt={cat.label} style={{
           width: '100%', height: '100%', objectFit: 'cover',
@@ -203,10 +203,10 @@ const CategoryShelf = () => {
 
   return (
     <section style={{ padding: '4px 0 0' }}>
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 4, marginBottom: 4 }}>
+      <div className="cat-top" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 4, marginBottom: 4 }}>
         {topCats.map(c => <CatCard key={c.id} cat={c} height="75vh" />)}
       </div>
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 4 }}>
+      <div className="cat-bottom" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 4 }}>
         {bottomCats.map(c => <CatCard key={c.id} cat={c} height="55vh" />)}
       </div>
     </section>
@@ -223,9 +223,9 @@ const Promise = () => {
   ];
   return (
     <section style={{ borderTop: '1px solid var(--line)', borderBottom: '1px solid var(--line)', margin: '80px 0 0' }}>
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)' }}>
+      <div className="promise-strip" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)' }}>
         {items.map((item, i) => (
-          <div key={item.title} style={{
+          <div key={item.title} className="promise-item" style={{
             padding: '32px 40px',
             borderLeft: i > 0 ? '1px solid var(--line)' : 'none',
           }}>
@@ -259,7 +259,7 @@ const InstagramStrip = () => {
           Follow on Instagram
         </a>
       </div>
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(6, 1fr)', gap: 4 }}>
+      <div className="insta-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(6, 1fr)', gap: 4 }}>
         {photos.map((p, i) => (
           <a key={i} href="#" style={{
             aspectRatio: '1', overflow: 'hidden', position: 'relative', display: 'block',

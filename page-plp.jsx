@@ -130,6 +130,7 @@ const PLPPage = ({ category, onQuickView, onAddWishlist, wishlist }) => {
   const [sortOpen, setSortOpen] = React.useState(false);
   const [density, setDensity] = React.useState(4);
   const [filters, setFilters] = React.useState({ size: [], color: [], price: null, tags: [] });
+  const [mobileFiltersOpen, setMobileFiltersOpen] = React.useState(false);
   const cat = CATEGORIES.find(c => c.id === category) || CATEGORIES[0];
 
   const filtered = React.useMemo(() => {
@@ -157,7 +158,7 @@ const PLPPage = ({ category, onQuickView, onAddWishlist, wishlist }) => {
   return (
     <div className="page-enter" style={{ padding: '0' }} data-screen-label={`02 PLP — ${cat.label}`}>
       {/* Minimal header row */}
-      <div style={{ padding: '28px 40px 20px', borderBottom: '1px solid var(--line)', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+      <div className="plp-header" style={{ padding: '28px 40px 20px', borderBottom: '1px solid var(--line)', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
         <h1 style={{ fontSize: 13, letterSpacing: '0.1em', textTransform: 'uppercase', margin: 0, fontWeight: 400 }}>
           {cat.id === 'all' ? 'All' : cat.label}
           <span style={{ color: 'var(--stone)', marginLeft: 12 }}>{filtered.length}</span>
@@ -167,10 +168,52 @@ const PLPPage = ({ category, onQuickView, onAddWishlist, wishlist }) => {
         </div>
       </div>
 
-      <div style={{ display: 'flex', gap: 0, alignItems: 'flex-start' }}>
-        <PLPFilters filters={filters} setFilters={setFilters} count={filtered.length} />
+      {/* Mobile filter bar */}
+      <div className="plp-mobile-filter-bar" style={{ display: 'none', padding: '10px 16px', borderBottom: '1px solid var(--line)', gap: 8 }}>
+        <button
+          onClick={() => setMobileFiltersOpen(true)}
+          style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, padding: '10px', border: '1px solid var(--line)', fontSize: 12, letterSpacing: '0.08em', textTransform: 'uppercase', background: 'transparent', cursor: 'pointer' }}
+        >
+          <Icon name="sliders" size={14} /> Filter {(filters.size?.length || filters.color?.length || filters.price || filters.tags?.length) ? `(${[filters.size?.length, filters.color?.length, filters.price ? 1 : 0, filters.tags?.length].reduce((a,b)=>a+(b||0),0)})` : ''}
+        </button>
+        <div style={{ position: 'relative' }}>
+          <button onClick={() => setSortOpen(!sortOpen)} style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '10px 14px', border: '1px solid var(--line)', fontSize: 12, letterSpacing: '0.08em', textTransform: 'uppercase', background: 'transparent', cursor: 'pointer' }}>
+            Sort <Icon name="chevron" size={12} />
+          </button>
+          {sortOpen && (
+            <div style={{ position: 'absolute', top: 'calc(100% + 4px)', right: 0, background: '#fff', border: '1px solid var(--line)', zIndex: 30, minWidth: 180, padding: 4 }}>
+              {SORT_OPTIONS.map(o => (
+                <button key={o.id} onClick={() => { setSort(o.id); setSortOpen(false); }} style={{ display: 'block', width: '100%', textAlign: 'left', padding: '10px 14px', fontSize: 13, background: sort === o.id ? 'var(--paper-2)' : 'transparent' }}>{o.label}</button>
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
 
-        <div style={{ flex: 1, minWidth: 0, padding: '24px 40px' }}>
+      <div style={{ display: 'flex', gap: 0, alignItems: 'flex-start' }}>
+        {/* Mobile filter drawer */}
+        {mobileFiltersOpen && (
+          <div style={{ position: 'fixed', inset: 0, zIndex: 200, display: 'flex', flexDirection: 'column', background: '#fff' }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 16px', height: 52, borderBottom: '1px solid var(--line)', flexShrink: 0 }}>
+              <span style={{ fontSize: 12, letterSpacing: '0.1em', textTransform: 'uppercase' }}>Filter</span>
+              <button onClick={() => setMobileFiltersOpen(false)} className="icon-btn"><Icon name="close" size={20} /></button>
+            </div>
+            <div style={{ flex: 1, overflowY: 'auto' }}>
+              <PLPFilters filters={filters} setFilters={setFilters} count={filtered.length} />
+            </div>
+            <div style={{ padding: '16px', borderTop: '1px solid var(--line)', display: 'flex', gap: 10 }}>
+              <button onClick={() => { setFilters({ size: [], color: [], price: null, tags: [] }); setMobileFiltersOpen(false); }} style={{ flex: 1, padding: '14px', border: '1px solid var(--line)', fontSize: 12, letterSpacing: '0.08em', textTransform: 'uppercase', background: 'transparent', cursor: 'pointer' }}>Clear all</button>
+              <button onClick={() => setMobileFiltersOpen(false)} style={{ flex: 2, padding: '14px', background: 'var(--ink)', color: '#fff', fontSize: 12, letterSpacing: '0.08em', textTransform: 'uppercase', border: 'none', cursor: 'pointer' }}>
+                View {filtered.length} items
+              </button>
+            </div>
+          </div>
+        )}
+        <div className="plp-sidebar">
+          <PLPFilters filters={filters} setFilters={setFilters} count={filtered.length} />
+        </div>
+
+        <div className="plp-content" style={{ flex: 1, minWidth: 0, padding: '24px 40px' }}>
           {/* Toolbar */}
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 24 }}>
             <div style={{ fontSize: 11, color: 'var(--stone)', letterSpacing: '0.06em', textTransform: 'uppercase' }}>
@@ -254,7 +297,7 @@ const PLPPage = ({ category, onQuickView, onAddWishlist, wishlist }) => {
               <div style={{ fontSize: 13, marginTop: 8 }}>Try removing a filter or two.</div>
             </div>
           ) : (
-            <div style={{
+            <div className="plp-grid" style={{
               display: 'grid',
               gridTemplateColumns: `repeat(${density}, 1fr)`,
               gap: '2px 16px',

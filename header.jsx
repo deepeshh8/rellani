@@ -172,111 +172,208 @@ const SearchOverlay = ({ open, onClose }) => {
   );
 };
 
+// Mobile full-screen menu
+const MobileMenu = ({ open, onClose, route, onOpenSearch, onOpenCart, cartCount }) => (
+  <div className={`mobile-menu-overlay${open ? ' open' : ''}`}>
+    {/* top bar */}
+    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 16px', height: 48, borderBottom: '1px solid var(--line)', flexShrink: 0 }}>
+      <a href="#/" onClick={onClose} style={{ letterSpacing: '0.18em', fontSize: 16, textTransform: 'uppercase', fontWeight: 400 }}>RELLANI</a>
+      <button onClick={onClose} className="icon-btn" aria-label="Close">
+        <Icon name="close" size={20} stroke={1.3} />
+      </button>
+    </div>
+
+    {/* nav links */}
+    <nav style={{ flex: 1, overflowY: 'auto', padding: '8px 0' }}>
+      {[
+        { label: 'New In', href: '#/shop/all' },
+        { label: 'Outerwear', href: '#/shop/outerwear' },
+        { label: 'Knitwear', href: '#/shop/knits' },
+        { label: 'Tops & Shirts', href: '#/shop/tops' },
+        { label: 'Denim', href: '#/shop/denim' },
+        { label: 'Trousers', href: '#/shop/trousers' },
+        { label: 'Dresses', href: '#/shop/dresses' },
+        { label: 'Shoes', href: '#/shop/shoes' },
+        { label: 'Accessories', href: '#/shop/accessories' },
+        { label: 'Lookbook', href: '#/lookbook' },
+        { label: 'About', href: '#/about' },
+      ].map(item => (
+        <a key={item.label} href={item.href} onClick={onClose} style={{
+          display: 'block', padding: '16px 24px',
+          fontSize: 15, letterSpacing: '0.04em',
+          borderBottom: '1px solid var(--line)', color: 'var(--ink)',
+        }}>{item.label}</a>
+      ))}
+    </nav>
+
+    {/* bottom actions */}
+    <div style={{ padding: '20px 24px', borderTop: '1px solid var(--line)', display: 'flex', flexDirection: 'column', gap: 14 }}>
+      <a href="#/account" onClick={onClose} style={{ display: 'flex', alignItems: 'center', gap: 12, fontSize: 13, color: 'var(--ink)' }}>
+        <Icon name="user" size={18} stroke={1.4} /> My Account
+      </a>
+      <a href="#/wishlist" onClick={onClose} style={{ display: 'flex', alignItems: 'center', gap: 12, fontSize: 13, color: 'var(--ink)' }}>
+        <Icon name="heart" size={18} stroke={1.4} /> Saved Items
+      </a>
+    </div>
+  </div>
+);
+
+// Mobile bottom navigation bar
+const MobileBottomNav = ({ route, onOpenCart, onOpenSearch, cartCount, wishlistCount }) => (
+  <nav className="mobile-bottom-nav" role="navigation" aria-label="Mobile navigation">
+    <a href="#/" className={route === '/' ? 'active' : ''} aria-label="Home">
+      <Icon name="sparkle" size={20} stroke={1.4} />
+      Home
+    </a>
+    <a href="#/shop/all" className={route.startsWith('/shop') ? 'active' : ''} aria-label="Shop">
+      <Icon name="grid" size={20} stroke={1.4} />
+      Shop
+    </a>
+    <button onClick={onOpenSearch} aria-label="Search">
+      <Icon name="search" size={20} stroke={1.4} />
+      Search
+    </button>
+    <a href="#/wishlist" style={{ position: 'relative' }} aria-label="Saved">
+      <Icon name="heart" size={20} stroke={1.4} />
+      {wishlistCount > 0 && <span style={{ position: 'absolute', top: 6, right: '50%', transform: 'translateX(10px)', width: 6, height: 6, background: 'var(--ink)', borderRadius: '50%' }} />}
+      Saved
+    </a>
+    <button onClick={onOpenCart} style={{ position: 'relative' }} aria-label="Bag" id="cart-icon">
+      <Icon name="bag" size={20} stroke={1.4} />
+      {cartCount > 0 && <span style={{ position: 'absolute', top: 6, right: '50%', transform: 'translateX(10px)', width: 6, height: 6, background: 'var(--ink)', borderRadius: '50%' }} />}
+      Bag
+    </button>
+  </nav>
+);
+
 const Header = ({ cartCount, wishlistCount, onOpenCart, onOpenSearch, route }) => {
   const [scrolled, setScrolled] = React.useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
   React.useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 4);
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
+  React.useEffect(() => {
+    // close menu on route change
+    setMobileMenuOpen(false);
+  }, [route]);
+  React.useEffect(() => {
+    document.body.style.overflow = mobileMenuOpen ? 'hidden' : '';
+    return () => { document.body.style.overflow = ''; };
+  }, [mobileMenuOpen]);
 
   const isPLP = route.startsWith('/shop');
   const currentCat = isPLP ? route.split('/')[2] : null;
   const linkStyle = { fontSize: 12, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--ink)' };
 
   return (
-    <header style={{
-      position: 'sticky', top: 0, zIndex: 50,
-      background: 'rgba(255,255,255,0.97)',
-      backdropFilter: 'blur(12px)',
-      borderBottom: scrolled ? '1px solid var(--line)' : '1px solid transparent',
-      transition: 'border-color .2s',
-    }}>
-      <Announcement />
+    <>
+      <MobileMenu
+        open={mobileMenuOpen}
+        onClose={() => setMobileMenuOpen(false)}
+        route={route}
+        onOpenSearch={onOpenSearch}
+        onOpenCart={onOpenCart}
+        cartCount={cartCount}
+      />
 
-      {/* Main nav row */}
-      <div style={{
-        display: 'grid',
-        gridTemplateColumns: '1fr auto 1fr',
-        alignItems: 'center',
-        padding: '0 24px',
-        height: 52,
+      <header style={{
+        position: 'sticky', top: 0, zIndex: 50,
+        background: 'rgba(255,255,255,0.97)',
+        backdropFilter: 'blur(12px)',
+        borderBottom: scrolled ? '1px solid var(--line)' : '1px solid transparent',
+        transition: 'border-color .2s',
       }}>
-        {/* Left nav */}
-        <nav style={{ display: 'flex', gap: 28, alignItems: 'center' }}>
-          <a href="#/shop/all" style={{ ...linkStyle, borderBottom: isPLP ? '1px solid var(--ink)' : 'none', paddingBottom: 1 }}>Shop</a>
-          <a href="#/lookbook" style={{ ...linkStyle, borderBottom: route.startsWith('/lookbook') ? '1px solid var(--ink)' : 'none', paddingBottom: 1 }}>Lookbook</a>
-          <a href="#/about" style={linkStyle}>About</a>
-        </nav>
+        <Announcement />
 
-        {/* Center wordmark */}
-        <a href="#/" style={{ justifySelf: 'center', letterSpacing: '0.18em', fontSize: 20, textTransform: 'uppercase', fontWeight: 400 }}>
-          RELLANI
-        </a>
+        {/* Main nav row */}
+        <div className="header-main-row" style={{
+          display: 'grid',
+          gridTemplateColumns: '1fr auto 1fr',
+          alignItems: 'center',
+          padding: '0 24px',
+          height: 52,
+        }}>
+          {/* Left: desktop nav | mobile hamburger */}
+          <div style={{ display: 'flex', alignItems: 'center' }}>
+            <nav className="desk-only" style={{ display: 'flex', gap: 28, alignItems: 'center' }}>
+              <a href="#/shop/all" style={{ ...linkStyle, borderBottom: isPLP ? '1px solid var(--ink)' : 'none', paddingBottom: 1 }}>Shop</a>
+              <a href="#/lookbook" style={{ ...linkStyle, borderBottom: route.startsWith('/lookbook') ? '1px solid var(--ink)' : 'none', paddingBottom: 1 }}>Lookbook</a>
+              <a href="#/about" style={linkStyle}>About</a>
+            </nav>
+            <button
+              className="mob-only icon-btn"
+              onClick={() => setMobileMenuOpen(true)}
+              aria-label="Open menu"
+              style={{ display: 'none' }}
+            >
+              <Icon name="menu" size={20} stroke={1.3} />
+            </button>
+          </div>
 
-        {/* Right icons */}
-        <div style={{ display: 'flex', alignItems: 'center', justifySelf: 'end', gap: 2 }}>
-          <button onClick={onOpenSearch} className="icon-btn" aria-label="Search">
-            <Icon name="search" size={17} stroke={1.4} />
-          </button>
-          <a href="#/account" className="icon-btn" aria-label="Account">
-            <Icon name="user" size={17} stroke={1.4} />
+          {/* Center wordmark */}
+          <a href="#/" className="header-wordmark" style={{ justifySelf: 'center', letterSpacing: '0.18em', fontSize: 20, textTransform: 'uppercase', fontWeight: 400 }}>
+            RELLANI
           </a>
-          <a href="#/wishlist" className="icon-btn" aria-label="Wishlist" style={{ position: 'relative' }}>
-            <Icon name="heart" size={17} stroke={1.4} />
-            {wishlistCount > 0 && (
-              <span style={{
-                position: 'absolute', top: 6, right: 6,
-                width: 6, height: 6,
-                background: 'var(--ink)',
-                borderRadius: '50%',
-              }} />
-            )}
-          </a>
-          <button onClick={onOpenCart} className="icon-btn" aria-label="Cart" style={{ position: 'relative' }} id="cart-icon">
-            <Icon name="bag" size={17} stroke={1.4} />
-            {cartCount > 0 && (
-              <span style={{
-                position: 'absolute', top: 6, right: 6,
-                width: 6, height: 6,
-                background: 'var(--ink)',
-                borderRadius: '50%',
-              }} />
-            )}
-          </button>
-        </div>
-      </div>
 
-      {/* Category sub-nav on PLP */}
-      {isPLP && (
-        <div style={{ borderTop: '1px solid var(--line)', overflowX: 'auto' }}>
-          <div style={{ display: 'flex', padding: '0 24px' }}>
-            {CATEGORIES.map(c => (
-              <a key={c.id} href={`#/shop/${c.id}`} style={{
-                padding: '10px 16px',
-                fontSize: 11, letterSpacing: '0.1em', textTransform: 'uppercase',
-                color: currentCat === c.id ? 'var(--ink)' : 'var(--stone)',
-                borderBottom: currentCat === c.id ? '1px solid var(--ink)' : '1px solid transparent',
-                whiteSpace: 'nowrap',
-                transition: 'color .15s',
-              }}>{c.label}</a>
-            ))}
+          {/* Right: desktop icons | mobile search+bag only */}
+          <div style={{ display: 'flex', alignItems: 'center', justifySelf: 'end', gap: 2 }}>
+            <button onClick={onOpenSearch} className="icon-btn" aria-label="Search">
+              <Icon name="search" size={17} stroke={1.4} />
+            </button>
+            <a href="#/account" className="icon-btn desk-only" aria-label="Account" style={{ display: 'inherit' }}>
+              <Icon name="user" size={17} stroke={1.4} />
+            </a>
+            <a href="#/wishlist" className="icon-btn desk-only" aria-label="Wishlist" style={{ position: 'relative', display: 'inherit' }}>
+              <Icon name="heart" size={17} stroke={1.4} />
+              {wishlistCount > 0 && <span style={{ position: 'absolute', top: 6, right: 6, width: 6, height: 6, background: 'var(--ink)', borderRadius: '50%' }} />}
+            </a>
+            <button onClick={onOpenCart} className="icon-btn" aria-label="Cart" style={{ position: 'relative' }} id="cart-icon">
+              <Icon name="bag" size={17} stroke={1.4} />
+              {cartCount > 0 && <span style={{ position: 'absolute', top: 6, right: 6, width: 6, height: 6, background: 'var(--ink)', borderRadius: '50%' }} />}
+            </button>
           </div>
         </div>
-      )}
-    </header>
+
+        {/* Category sub-nav on PLP — desktop only */}
+        {isPLP && (
+          <div className="header-sub-nav" style={{ borderTop: '1px solid var(--line)', overflowX: 'auto' }}>
+            <div style={{ display: 'flex', padding: '0 24px' }}>
+              {CATEGORIES.map(c => (
+                <a key={c.id} href={`#/shop/${c.id}`} style={{
+                  padding: '10px 16px',
+                  fontSize: 11, letterSpacing: '0.1em', textTransform: 'uppercase',
+                  color: currentCat === c.id ? 'var(--ink)' : 'var(--stone)',
+                  borderBottom: currentCat === c.id ? '1px solid var(--ink)' : '1px solid transparent',
+                  whiteSpace: 'nowrap', transition: 'color .15s',
+                }}>{c.label}</a>
+              ))}
+            </div>
+          </div>
+        )}
+      </header>
+
+      <MobileBottomNav
+        route={route}
+        onOpenCart={onOpenCart}
+        onOpenSearch={onOpenSearch}
+        cartCount={cartCount}
+        wishlistCount={wishlistCount}
+      />
+    </>
   );
 };
 
 const Footer = () => (
   <footer style={{ borderTop: '1px solid var(--line)', marginTop: 80 }}>
     {/* Email signup */}
-    <div style={{ borderBottom: '1px solid var(--line)', padding: '48px 40px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 40 }}>
+    <div className="footer-signup" style={{ borderBottom: '1px solid var(--line)', padding: '48px 40px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 40 }}>
       <div>
         <div style={{ fontSize: 11, letterSpacing: '0.16em', textTransform: 'uppercase', marginBottom: 8 }}>Stay in the loop</div>
         <div style={{ fontSize: 13, color: 'var(--stone)' }}>New arrivals, exclusive access, and nothing else.</div>
       </div>
-      <div style={{ display: 'flex', gap: 0, flex: '0 0 400px' }}>
+      <div className="footer-signup-field" style={{ display: 'flex', gap: 0, flex: '0 0 400px' }}>
         <input className="input-underline" placeholder="Email address" style={{ flex: 1, fontSize: 13 }} />
         <button style={{ fontSize: 11, letterSpacing: '0.12em', textTransform: 'uppercase', padding: '8px 20px', background: 'var(--ink)', color: '#fff', border: 'none', cursor: 'pointer' }}>
           Subscribe
@@ -285,7 +382,7 @@ const Footer = () => (
     </div>
 
     {/* Links */}
-    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', padding: '48px 40px 40px', gap: 32 }}>
+    <div className="footer-links" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', padding: '48px 40px 40px', gap: 32 }}>
       {[
         { title: 'Shop', items: [['New In', '#/shop/all'], ['Outerwear', '#/shop/outerwear'], ['Knitwear', '#/shop/knits'], ['Denim', '#/shop/denim'], ['Dresses', '#/shop/dresses'], ['Shoes', '#/shop/shoes'], ['Accessories', '#/shop/accessories']] },
         { title: 'Help', items: [['Contact', '#'], ['Shipping Info', '#'], ['Returns', '#'], ['Size Guide', '#'], ['Care Guide', '#'], ['Track Order', '#']] },
@@ -304,14 +401,14 @@ const Footer = () => (
     </div>
 
     {/* Bottom bar */}
-    <div style={{
+    <div className="footer-bottom" style={{
       borderTop: '1px solid var(--line)',
       padding: '20px 40px',
       display: 'flex', justifyContent: 'space-between', alignItems: 'center',
       fontSize: 11, color: 'var(--stone)', letterSpacing: '0.04em',
     }}>
       <div style={{ letterSpacing: '0.18em', fontWeight: 400 }}>RELLANI © 2026</div>
-      <div style={{ display: 'flex', gap: 24 }}>
+      <div className="footer-bottom-links" style={{ display: 'flex', gap: 24 }}>
         <a href="#" style={{ color: 'inherit' }}>Privacy Policy</a>
         <a href="#" style={{ color: 'inherit' }}>Terms of Use</a>
         <a href="#" style={{ color: 'inherit' }}>Cookies</a>
